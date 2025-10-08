@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>SurveGlobe - Sign In</title>
-    <meta name="google-signin-client_id" content="45131682308-6ratq93i6qpboq0ba6t32dq3v517frcu.apps.googleusercontent.com">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-  </head>
-  <body>
-    <h2>Welcome to SurveGlobe</h2>
-   <button id="loginBtn">Sign in with Google</button>
-<p id="userInfo"></p>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SurveGlobe</title>
+</head>
+<body>
+  <h2>Welcome to SurveGlobe</h2>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  <button id="loginBtn">Sign in with Google</button>
+  <p id="userInfo"></p>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBV901z4u9ZWTkD4EQDOMibdhuq-WM9yMU",
-    authDomain: "surveglobe.firebaseapp.com",
-    projectId: "surveglobe",
-    storageBucket: "surveglobe.firebasestorage.app",
-    messagingSenderId: "576281616925",
-    appId: "1:576281616925:web:4ea22325be28e77d765cf4",
-  };
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+    const firebaseConfig = {
+      apiKey: "AIzaSyBV901z4u9ZWTkD4EQDOMibdhuq-WM9yMU",
+      authDomain: "surveglobe.firebaseapp.com",
+      projectId: "surveglobe",
+      storageBucket: "surveglobe.firebasestorage.app",
+      messagingSenderId: "576281616925",
+      appId: "1:576281616925:web:4ea22325be28e77d765cf4",
+    };
 
-  document.getElementById("loginBtn").addEventListener("click", async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      document.getElementById("userInfo").innerText = `Welcome, ${user.displayName}`;
-      console.log("Logged in user:", user);
-    } catch (error) {
-      console.error("Login failed:", error.message);
-    }
-  });
-</script>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
 
-  </body>
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        document.getElementById("userInfo").innerText = `Welcome, ${user.displayName}`;
+        console.log("Logged in user:", user);
+      } catch (error) {
+        console.error("Login failed:", error.message);
+      }
+    });
+  </script>
+</body>
 </html>
+
