@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SurveGlobe | School Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
+
+    .login-box {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px 50px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .login-box:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    #loginBtn {
+      background: #fff;
+      color: #2575fc;
+      border: none;
+      padding: 14px 35px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+    }
+
+    #loginBtn:hover {
+      background: #2575fc;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    #userInfo {
+      margin-top: 20px;
+      font-size: 17px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>🎓 Welcome to SurveGlobe School Portal</h2>
+    <button id="loginBtn">Sign in with Google</button>
+    <p id="userInfo"></p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBV901z4u9ZWTkD4EQDOMibdhuq-WM9yMU",
+      authDomain: "surveglobe.firebaseapp.com",
+      projectId: "surveglobe",
+      storageBucket: "surveglobe.firebasestorage.app",
+      messagingSenderId: "576281616925",
+      appId: "1:576281616925:web:4ea22325be28e77d765cf4",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        document.getElementById("userInfo").innerText = `Welcome, ${user.displayName}! 👋`;
+        console.log("Logged in user:", user);
+      } catch (error) {
+        console.error("Login failed:", error.message);
+        document.getElementById("userInfo").innerText = "⚠️ Login failed. Try again.";
+      }
+    });
+  </script>
+</body>
+</html>
