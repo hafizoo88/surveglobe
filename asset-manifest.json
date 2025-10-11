@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/surveglobe-react/static/css/main.e6c13ad2.css",
+    "main.js": "/surveglobe-react/static/js/main.10fd6ade.js",
+    "static/js/453.0c578de3.chunk.js": "/surveglobe-react/static/js/453.0c578de3.chunk.js",
+    "index.html": "/surveglobe-react/index.html",
+    "main.e6c13ad2.css.map": "/surveglobe-react/static/css/main.e6c13ad2.css.map",
+    "main.10fd6ade.js.map": "/surveglobe-react/static/js/main.10fd6ade.js.map",
+    "453.0c578de3.chunk.js.map": "/surveglobe-react/static/js/453.0c578de3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.10fd6ade.js"
+  ]
+}
