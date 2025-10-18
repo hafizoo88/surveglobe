@@ -1,18 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>SurveGlobe</title>
-</head>
-<body>
-  <h2>Welcome to SurveGlobe</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SurveGlobe</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: #0b0c10;
+        color: #66fcf1;
+        margin: 0;
+      }
+      button {
+        background: #45a29e;
+        border: none;
+        padding: 12px 24px;
+        color: #0b0c10;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      button:hover {
+        background: #66fcf1;
+      }
+      #userInfo {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+    </style>
+  </head>
 
-  <button id="loginBtn">Sign in with Google</button>
-  <p id="userInfo"></p>
+  <body>
+    <h2>Welcome to SurveGlobe 🌐</h2>
+    <button id="loginBtn">Sign in with Google</button>
+    <p id="userInfo"></p>
 
-  <!-- Import local JS module instead of Firebase CDN -->
-  <script type="module" src="./main.js"></script>
-</body>
+    <!-- Firebase CDN-based setup -->
+    <script type="module">
+      // ✅ Import Firebase from CDN (works on GitHub Pages)
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+      // ✅ Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY_HERE",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+
+      const loginBtn = document.getElementById("loginBtn");
+      const userInfo = document.getElementById("userInfo");
+
+      // 🔹 Sign in/out toggle
+      loginBtn.addEventListener("click", async () => {
+        if (auth.currentUser) {
+          await signOut(auth);
+          userInfo.textContent = "Signed out successfully.";
+          loginBtn.textContent = "Sign in with Google";
+        } else {
+          try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            userInfo.textContent = `Welcome, ${user.displayName} (${user.email})`;
+            loginBtn.textContent = "Sign out";
+          } catch (error) {
+            console.error(error);
+            userInfo.textContent = "Login failed. Try again.";
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
+
 
 
